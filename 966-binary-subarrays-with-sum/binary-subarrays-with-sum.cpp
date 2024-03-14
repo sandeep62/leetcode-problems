@@ -1,28 +1,18 @@
 class Solution {
 public:
     int numSubarraysWithSum(vector<int>& nums, int goal) {
-        int i = 0, count = 0, res = 0;
-        for (int j = 0; j < nums.size(); ++j) {
-            if (nums[j] == 1) {
-                goal--;
-                count = 0;
+        int ans=0,prefixsum=0;
+        unordered_map<int,int>mp;
+        mp[0]=1;
+        for(auto el:nums)
+        {
+            prefixsum+=el;
+            if(mp.find(prefixsum-goal)!=mp.end())
+            {
+                ans+=mp[prefixsum-goal];
             }
-            
-            while (goal == 0 && i <= j) {
-                goal += nums[i];
-                i++;
-                count++;
-                if (i > j - goal + 1)
-                    break;
-            }
-            
-            while (goal < 0) {
-                goal += nums[i];
-                i++;
-            }
-            
-            res += count;
+            mp[prefixsum]++;
         }
-        return res;
-    }
+        return ans;
+        }
 };
