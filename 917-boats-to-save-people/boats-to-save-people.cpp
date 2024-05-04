@@ -1,14 +1,27 @@
-#pragma GCC optimize("O3", "unroll-loops")
 class Solution {
 public:
     int numRescueBoats(vector<int>& people, int limit) {
-        sort(people.begin(), people.end());       
-        int x=0;
-        for(int l=0, r=people.size()-1;l<=r; r--){
-            x++;
-            if (people[l]<=limit-people[r])
-                l++;          
+        sort(people.begin(),people.end());
+        int n=people.size()-1;
+        int ans=0;
+        int i=0;
+        while(i<=n)
+        {
+            if(people[i]+people[n]<= limit )
+            {
+                ans++;
+                n--;
+                i++;
+            }
+            else
+            {
+                ans++;
+                n--;
+
+            }
+
         }
-        return x;
+        return ans;
+        
     }
 };
