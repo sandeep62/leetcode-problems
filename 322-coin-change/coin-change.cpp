@@ -45,6 +45,5 @@ public:
             }
         }
         return t[n][amount]==INT_MAX-1? -1:t[n][amount];
-        
     }
 };
