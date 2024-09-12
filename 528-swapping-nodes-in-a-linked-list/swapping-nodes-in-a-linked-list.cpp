@@ -39,10 +39,9 @@ public:
             }
             s++;
         }
-        if(start!=NULL && end!=NULL){
 
         swap(start->val,end->val);
-        }
+        
         return head;
         
     }
