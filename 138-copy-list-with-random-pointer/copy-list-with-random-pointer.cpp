@@ -17,22 +17,37 @@ public:
 class Solution {
 public:
     Node* copyRandomList(Node* head) {
-        unordered_map<Node*,Node*>hm;
+        if (head == NULL) return NULL; 
+        // creating a new node of linkedlist wo=ith the value curr;
         Node*curr=head;
-        // creating the new node into the hash table 
         while(curr!=NULL){
-            hm[curr]=new Node(curr->val);
-            curr=curr->next;
+           Node*next=curr->next;
+            curr->next=new Node(curr->val);
+            curr->next->next=next;
+            curr=next;
+
         }
-        // traverse through the original linkedlist 
+        // connecting the random nodes accordingly 
         curr=head;
         while(curr!=NULL){
-           hm[curr]->next = hm[curr->next]; 
-            hm[curr]->random = hm[curr->random];
-            curr = curr->next;
-        }
-        return hm[head];
+            curr->next->random=(curr->random!=NULL) ? curr->random->next : NULL;
+            curr=curr->next->next;
 
+        }
+        //traverse through the linkedlist and delete the alternate one
+        Node*newNode=head->next;
+        Node*copyNode=newNode;
+        curr=head;
+        while(curr!=NULL){
+            curr->next=curr->next->next;
+            if(copyNode->next!=NULL){
+                copyNode->next=copyNode->next->next;
+            }
+            curr=curr->next;
+            copyNode=copyNode->next;
+        }
+
+        return newNode;
 
         
     }
